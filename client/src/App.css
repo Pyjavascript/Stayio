@@ -1,1 +1,9 @@
 @import "tailwindcss";
+@font-face {
+    font-family: 'Regular';
+    src: url('./assets/font/MEDIUM.OTF');
+
+}
+*{
+    font-family: 'Regular';
+}
