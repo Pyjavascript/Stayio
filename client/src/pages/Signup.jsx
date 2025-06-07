@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 import { auth } from "../firebase/config";
 import { onAuthStateChanged} from "firebase/auth";
 import { LoginWithGoogle } from "../firebase/auth";
@@ -9,6 +10,7 @@ import {
 
 // [#007AFF]
 function Signup() {
+  const navigate = useNavigate();
   // const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
@@ -22,6 +24,11 @@ function Signup() {
     });
     return unsubscribe;
   }, []);
+  useEffect(() => {
+    if (user && user.emailVerified) {
+      navigate("/");
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,17 +55,17 @@ function Signup() {
   const GoogleLogin = async (e) => {
     e.preventDefault();
     try {
-      await LoginWithGoogle();
+      const cred = await LoginWithGoogle();
+      navigate("/home"); 
+      console.log(cred);
+      
       alert("Logged in with Google!");
     } catch (error) {
       alert("Error: " + error.message);
     }
   };
   return (
-    <div className="flex md:flex-row flex-col justify-between items-center h-screen w-screen bg-[#F2F2F7]">
-      <div className="md:w-1/2 md:h-full h-2 md:p-20 p-0 w-30">
-        <img src="src/assets/LOGO.png" alt="" />
-      </div>
+    <div className="flex md:flex-row flex-col justify-start items-center h-screen w-screen bg-[#F2F2F7]">
       <div className="md:w-1/2 p-2 md:p-0 w-full h-full flex flex-col items-center justify-center">
         <div className="md:w-2/3 pb-4 flex flex-col items-center justify-center bg-white rounded-lg border  border-slate-300">
           <h1 className="text-xl w-full text-center p-3 mb-2 border-b-1 border-slate-300">

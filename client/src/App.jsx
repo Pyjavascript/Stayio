@@ -1,5 +1,10 @@
 import { Login, Signup, Home } from "./index";
-import { BrowserRouter as Router, Routes, Route,Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useAuth } from "./hook/authHook";
 import "./App.css";
 
@@ -17,20 +22,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={
-            user ? (
-              user.emailVerified ? (
-                <Home />
-              ) : (
-                <Navigate to="/signup" />
-              )
-            ) : (
-              <Signup />
-            )
-          }
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route
           path="/home"
